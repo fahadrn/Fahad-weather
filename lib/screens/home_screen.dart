@@ -1,4 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -23,11 +27,64 @@ class _HomeScreenState extends State<HomeScreen> {
   late WeatherDataModel currentWeather;
   bool isLoading = false;
   bool isLoaded = false;
+  late ConnectivityResult result;
+  late StreamSubscription subscription;
+  bool isConnected = false;
+
+  checkInternet() async {
+    result = await Connectivity().checkConnectivity();
+    if (result != ConnectivityResult.none) {
+      setState(() {
+        isConnected = true;
+      });
+    } else {
+      setState(() {
+        isConnected = false;
+      });
+      showDialogBox();
+    }
+
+    return isConnected;
+  }
+
+  showDialogBox() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+              title: Text('No Internet'),
+              content: Text('Please Check Your Internet Connection'),
+              actions: [
+                CupertinoButton.filled(
+                  onPressed: () async {
+                    navigator?.pop(context);
+                    bool connection = await checkInternet();
+                    if (connection) {
+                      fetchCurrentLocationClimateDetails();
+                    }
+                    // checkInternet();
+                    // fetchCurrentLocationClimateDetails();
+                  },
+                  child: Text('Retry'),
+                )
+              ],
+            ));
+  }
+
+  startStreaming() {
+    subscription = Connectivity().onConnectivityChanged.listen((event) async {
+      checkInternet();
+    });
+  }
 
   Future<void> fetchCurrentLocationClimateDetails() async {
     setState(() {
       isLoading = true;
     });
+
+    bool connection = await checkInternet();
+
+    if (!connection) return;
 
     var lat;
     var lon;
@@ -55,6 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    // startStreaming();
     fetchCurrentLocationClimateDetails();
     super.initState();
   }
@@ -64,55 +122,48 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 14, 89, 119),
       body: SafeArea(
-        child: Obx(
-          () => globalController.checkLoading().isTrue
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/icons/clouds.png',
-                        height: 200,
-                        width: 200,
-                        color: Colors.white,
-                      ),
-                      CircularProgressIndicator(
-                        backgroundColor: Color.fromARGB(255, 14, 89, 119),
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                )
-              : Container(
-                  decoration: BoxDecoration(
-                    gradient: blueGradient,
-                  ),
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      Column(
-                        children: [
-                          HeaderWidget(
-                              currentWeather: currentWeather, isHome: true),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          CurrentWeatherWidget(
-                            currentWeather: currentWeather,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      HourlyDetails(currentWeather: currentWeather),
-                      // SizedBox(
-                      //   height: 50,
-                      // )
-                    ],
-                  ),
+        child: isLoading
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/icons/clouds.png',
+                      height: 200,
+                      width: 200,
+                      color: Colors.white,
+                    ),
+                    CircularProgressIndicator(
+                      backgroundColor: Color.fromARGB(255, 14, 89, 119),
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
-        ),
+              )
+            : Container(
+                decoration: BoxDecoration(
+                  gradient: blueGradient,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HeaderWidget(currentWeather: currentWeather, isHome: true),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    CurrentWeatherWidget(
+                      currentWeather: currentWeather,
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    HourlyDetails(currentWeather: currentWeather),
+                  ],
+                ),
+                // SizedBox(
+                //   height: 50,
+                // )
+              ),
       ),
     );
   }

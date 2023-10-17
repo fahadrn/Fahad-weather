@@ -30,7 +30,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Delete Confirmation'),
-            content: Text(' delete $location from favorites ?'),
+            content: Text(' Delete $location from Favorites ?'),
             actions: [
               TextButton(
                 child: Text('Cancel'),

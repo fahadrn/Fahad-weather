@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:weather/screens/home_screen.dart';
 
 void main(List<String> args) {

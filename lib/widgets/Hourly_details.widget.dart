@@ -19,12 +19,12 @@ class _HourlyDetailsState extends State<HourlyDetails> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: double.tryParse('256'),
+      // height: double.tryParse('256'),
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 102, 194, 227),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(60),
-          topRight: Radius.circular(60),
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
       ),
       child: Column(
@@ -33,7 +33,7 @@ class _HourlyDetailsState extends State<HourlyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 35, left: 10),
+                padding: EdgeInsets.only(top: 15, left: 10),
                 child: Text(
                   'The Next hours',
                   style: TextStyle(
