@@ -19,7 +19,6 @@ class _HourlyDetailsState extends State<HourlyDetails> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      // height: double.tryParse('256'),
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 102, 194, 227),
         borderRadius: BorderRadius.only(

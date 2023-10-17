@@ -97,16 +97,6 @@ class _SearchScreenState extends State<SearchScreen> {
       setState(() {
         favoriteLocations = favorites;
       });
-      // if (favorites.contains(locationSearchField.text)) {
-      //   print('available');
-      //   setState(() {
-      //     isavailable = true;
-      //   });
-      // } else {
-      //   setState(() {
-      //     isavailable = false;
-      //   });
-      // }
 
       setState(() {
         currentWeather = data;
@@ -124,7 +114,6 @@ class _SearchScreenState extends State<SearchScreen> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              // icon: Icon(Icons.dangerous),
               backgroundColor: Colors.white,
               title: Text('Alert'),
               content: Text('Location not found'),
@@ -148,6 +137,17 @@ class _SearchScreenState extends State<SearchScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            if (isLoaded)
+              IconButton(
+                tooltip: 'Favorites',
+                icon: Icon(Icons.favorite_border),
+                onPressed: () {
+                  navigator?.push(MaterialPageRoute(
+                      builder: (context) => FavoritesScreen()));
+                },
+              ),
+          ],
           title: Text('Search', style: TextStyle(color: Colors.white)),
           backgroundColor: Color.fromARGB(255, 14, 89, 119),
         ),
@@ -156,7 +156,7 @@ class _SearchScreenState extends State<SearchScreen> {
           decoration: BoxDecoration(
             gradient: blueGradient,
           ),
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(2),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -176,8 +176,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     hintText: 'Enter Location',
                     hintStyle: TextStyle(color: Colors.white),
-
-                    // prefixIcon: Icon(Icons.search),
                     suffixIcon: IconButton(
                       onPressed: fetchLocationClimateDetails,
                       icon: Icon(
@@ -187,7 +185,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ),
                   onFieldSubmitted: (Value) => fetchLocationClimateDetails(),
-                  // onChanged: (value) => fetchLocationClimateDetails(),
                 ),
                 SizedBox(height: 10),
                 if (isLoading)
@@ -199,49 +196,39 @@ class _SearchScreenState extends State<SearchScreen> {
                   ClimateResults(
                     currentWeather: currentWeather,
                   ),
-                if (isLoaded)
-                  ElevatedButton(
-                    onPressed: () {
-                      if (isLocationInFavorites(locationSearchField.text)) {
-                        removeFromFavorite();
-                      } else {
-                        addToFavorites();
-                      }
-
-                      setState(() {});
-                    },
-                    child: Text(isLocationInFavorites(locationSearchField.text)
-                        ? 'Remove from Favorites'
-                        : 'Add to Favorites'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 4, 111, 153),
-                    ),
-                  ),
-                if (isLoaded)
-                  ElevatedButton(
-                    onPressed: () {
-                      navigator?.push(MaterialPageRoute(
-                          builder: (context) => FavoritesScreen()));
-                    },
-                    child: Text("Go to Favorites"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 4, 111, 153),
-                    ),
-                  ),
-                // ListView.builder(
-                //   itemCount: previousSearchedLocations.length,
-                //   shrinkWrap: true,
-                //   itemBuilder: (context, index) {
-                //     return ElevatedButton(
-                //       child: Text(previousSearchedLocations[index]),
-                //       onPressed: () {},
-                //     );
-                //   },
-                // ),
+                SizedBox(
+                  height: 35,
+                ),
               ],
             ),
           ),
         ),
+        floatingActionButton: !isLoaded
+            ? null
+            : FloatingActionButton.extended(
+                key: ValueKey('favorite_button'),
+                icon: isLocationInFavorites(locationSearchField.text)
+                    ? Icon(Icons.remove)
+                    : Icon(Icons.add),
+                tooltip: isLocationInFavorites(locationSearchField.text)
+                    ? 'Remove location from favorites'
+                    : 'Add location to favorites',
+                heroTag: 'favorite_button',
+                backgroundColor: Color.fromARGB(255, 4, 160, 160),
+                onPressed: () {
+                  if (isLocationInFavorites(locationSearchField.text)) {
+                    removeFromFavorite();
+                  } else {
+                    addToFavorites();
+                  }
+
+                  setState(() {});
+                },
+                label: Text(isLocationInFavorites(locationSearchField.text)
+                    ? 'Remove from Favorites'
+                    : 'Add To Favorites'),
+              ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         backgroundColor: Color.fromARGB(255, 14, 89, 119),
       ),
     );

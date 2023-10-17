@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather/model/WeatherDataModel.dart';
 import 'package:weather/model/weather_data_current.dart';
+import 'package:weather/widgets/Hourly_details.widget.dart';
 import 'package:weather/widgets/current_weather_widget.dart';
 import 'package:weather/widgets/header_widget.dart';
 
@@ -26,13 +27,11 @@ class _ClimateResultsState extends State<ClimateResults> {
       child: Card(
         elevation: 0,
         color: Colors.transparent,
-        // color: Color.fromARGB(255, 14, 89, 119),
         margin: EdgeInsets.all(0),
         child: Container(
           padding: EdgeInsets.only(bottom: 50),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            // gradient: blueGradient,
           ),
           child: Column(
             children: [
@@ -40,6 +39,10 @@ class _ClimateResultsState extends State<ClimateResults> {
               CurrentWeatherWidget(
                 currentWeather: widget.currentWeather,
               ),
+              SizedBox(
+                height: 20,
+              ),
+              HourlyDetails(currentWeather: widget.currentWeather)
             ],
           ),
         ),
