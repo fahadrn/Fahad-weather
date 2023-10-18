@@ -74,9 +74,6 @@ class _FavoriteDetailsScreenState extends State<FavoriteDetailsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 14, 89, 119),
-        ),
         body: isLoading
             ? Center(
                 child: CircularProgressIndicator(
@@ -89,23 +86,12 @@ class _FavoriteDetailsScreenState extends State<FavoriteDetailsScreen> {
                 decoration: BoxDecoration(
                   gradient: blueGradient,
                 ),
-                child: ListView(
-                  scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      children: [
-                        HeaderWidget(
-                            currentWeather: currentWeather, isHome: false),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    HeaderWidget(currentWeather: currentWeather, isHome: false),
                     CurrentWeatherWidget(
                       currentWeather: currentWeather,
-                    ),
-                    SizedBox(
-                      height: 15,
                     ),
                     HourlyDetails(currentWeather: currentWeather)
                   ],

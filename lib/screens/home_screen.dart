@@ -148,21 +148,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     HeaderWidget(currentWeather: currentWeather, isHome: true),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
                     CurrentWeatherWidget(
                       currentWeather: currentWeather,
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 10,
                     ),
                     HourlyDetails(currentWeather: currentWeather),
                   ],
                 ),
-                // SizedBox(
-                //   height: 50,
-                // )
               ),
       ),
     );

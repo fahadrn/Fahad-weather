@@ -84,12 +84,15 @@ class _HeaderWidgetState extends State<HeaderWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '${widget.currentWeather.location.region} , ${widget.currentWeather.location.country}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                  color: Colors.white,
+              Expanded(
+                child: Text(
+                  '${widget.currentWeather.location.region} , ${widget.currentWeather.location.country}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],

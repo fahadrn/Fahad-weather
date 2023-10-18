@@ -29,11 +29,11 @@ class _ClimateResultsState extends State<ClimateResults> {
         color: Colors.transparent,
         margin: EdgeInsets.all(0),
         child: Container(
-          padding: EdgeInsets.only(bottom: 50),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               HeaderWidget(currentWeather: widget.currentWeather),
               CurrentWeatherWidget(

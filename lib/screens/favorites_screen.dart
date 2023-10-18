@@ -29,15 +29,28 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Delete Confirmation'),
-            content: Text(' Delete $location from Favorites ?'),
+            backgroundColor: Color.fromARGB(148, 0, 229, 255),
+            title: Text(
+              'Delete Confirmation',
+              style: TextStyle(color: Colors.white),
+            ),
+            content: Text(
+              ' Delete $location from Favorites ?',
+              style: TextStyle(color: Colors.white),
+            ),
             actions: [
               TextButton(
-                child: Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(color: Colors.white),
+                ),
                 onPressed: () => Navigator.pop(context),
               ),
               TextButton(
-                child: Text('Yes'),
+                child: Text(
+                  'Yes',
+                  style: TextStyle(color: Colors.white),
+                ),
                 onPressed: () {
                   deleteFavorite(location);
                   Navigator.pop(context);
