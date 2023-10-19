@@ -108,6 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalController globalController =
       Get.put(GlobalController(), permanent: true);
 
+  Future<void> _refresh() async {
+    await fetchCurrentLocationClimateDetails();
+  }
+
   @override
   void initState() {
     fetchCurrentLocationClimateDetails();
@@ -137,25 +141,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               )
-            : Container(
-                decoration: BoxDecoration(
-                  gradient: blueGradient,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HeaderWidget(currentWeather: currentWeather, isHome: true),
-                    // SizedBox(
-                    //   height: 15,
-                    // ),
-                    CurrentWeatherWidget(
-                      currentWeather: currentWeather,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    HourlyDetails(currentWeather: currentWeather),
-                  ],
+            : RefreshIndicator(
+                onRefresh: _refresh,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: blueGradient,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      HeaderWidget(
+                          currentWeather: currentWeather, isHome: true),
+                      if (MediaQuery.of(context).size.height > 781)
+                        SizedBox(
+                            height:
+                                (MediaQuery.of(context).size.height - 781) / 2),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            CurrentWeatherWidget(
+                              currentWeather: currentWeather,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      HourlyDetails(currentWeather: currentWeather),
+                    ],
+                  ),
                 ),
               ),
       ),

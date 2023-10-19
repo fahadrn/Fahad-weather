@@ -106,7 +106,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Favourites'),
-        backgroundColor: Color.fromARGB(255, 14, 89, 119),
+        backgroundColor: Color.fromARGB(255, 4, 160, 160),
       ),
       body: SafeArea(
         child: Scaffold(
@@ -114,6 +114,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             decoration: BoxDecoration(gradient: blueGradient),
             child: Column(
               children: [
+                SizedBox(
+                  height: 10,
+                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: favoriteLocations.length,

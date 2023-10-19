@@ -158,7 +158,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
           ],
           title: Text('Search', style: TextStyle(color: Colors.white)),
-          backgroundColor: Color.fromARGB(255, 14, 89, 119),
+          backgroundColor: Color.fromARGB(255, 4, 160, 160),
         ),
         body: Container(
           height: double.infinity,
@@ -171,6 +171,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      SizedBox(
+                        height: 20,
+                      ),
                       TextFormField(
                         controller: locationSearchField,
                         decoration: InputDecoration(
