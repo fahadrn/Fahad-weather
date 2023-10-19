@@ -62,8 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (connection) {
                       fetchCurrentLocationClimateDetails();
                     }
-                    // checkInternet();
-                    // fetchCurrentLocationClimateDetails();
                   },
                   child: Text('Retry'),
                 )
@@ -112,7 +110,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // startStreaming();
     fetchCurrentLocationClimateDetails();
     super.initState();
   }
@@ -120,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 14, 89, 119),
+      backgroundColor: Color.fromARGB(255, 9, 235, 231),
       body: SafeArea(
         child: isLoading
             ? Center(
@@ -131,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       'assets/icons/clouds.png',
                       height: 200,
                       width: 200,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 14, 89, 119),
                     ),
                     CircularProgressIndicator(
                       backgroundColor: Color.fromARGB(255, 14, 89, 119),

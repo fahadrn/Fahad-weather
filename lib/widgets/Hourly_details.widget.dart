@@ -64,9 +64,7 @@ class _HourlyDetailsState extends State<HourlyDetails> {
               ],
             ),
           ),
-          SizedBox(
-            height: 115,
-          ),
+          SizedBox(height: 59),
         ],
       ),
     );

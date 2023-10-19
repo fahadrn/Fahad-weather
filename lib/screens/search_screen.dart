@@ -198,6 +198,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         onFieldSubmitted: (Value) =>
                             fetchLocationClimateDetails(),
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       if (isLoading)
                         CircularProgressIndicator(
                           backgroundColor: Colors.white,
@@ -211,12 +214,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 )
               : Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(
                       height: 20,
                     ),
                     TextFormField(
+                      textCapitalization: TextCapitalization.words,
                       controller: locationSearchField,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.only(
